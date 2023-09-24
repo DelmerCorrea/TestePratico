@@ -1,0 +1,72 @@
+﻿@page
+@model TestePratico.Pages.Conteiners.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Conteiner</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Conteiner.Cliente" class="control-label"></label>
+                <input asp-for="Conteiner.Cliente" class="form-control" />
+                <span asp-validation-for="Conteiner.Cliente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Conteiner.Numero" class="control-label"></label>
+                <input asp-for="Conteiner.Numero" class="form-control" />
+                <span asp-validation-for="Conteiner.Numero" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Conteiner.Tipo" class="control-label"></label>
+                <select asp-for="Conteiner.Tipo" class="form-control">
+                    @foreach (var tipo in Enum.GetValues(typeof(Models.TipoConteinerEnum)))
+                    {
+
+                        <option value="@tipo">@tipo</option>
+                    }
+                </select>
+                <span asp-validation-for="Conteiner.Tipo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Conteiner.Status" class="control-label"></label>
+                <select asp-for="Conteiner.Status" class="form-control">
+                    @foreach (var status in Enum.GetValues(typeof(Models.StatusConteinerEnum)))
+                    {
+
+                        <option value="@status">@status</option>
+                    }
+                </select>
+                <span asp-validation-for="Conteiner.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Conteiner.Categoria" class="control-label"></label>
+                <select asp-for="Conteiner.Categoria" class="form-control">
+                    @foreach (var categoria in Enum.GetValues(typeof(Models.CategoriaConteinerEnum)))
+                    {
+
+                        <option value="@categoria">@categoria</option>
+                    }
+                </select>
+                <span asp-validation-for="Conteiner.Categoria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

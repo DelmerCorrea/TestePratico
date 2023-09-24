@@ -1,0 +1,87 @@
+﻿@page
+@model TestePratico.Pages.Relatorios.MovimentacaoModel
+
+@{
+    ViewData["Title"] = "Movimentacao";
+}
+
+<h1>Movimentacao</h1>
+
+<table class="table pb-3">
+    <thead>
+        <tr>
+            <th>
+                Cliente
+            </th>
+            <th>
+                Tipo Movimentacao
+            </th>
+            <th>
+                Total
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cliente in Model.Movimentacao
+                                            .GroupBy(x => new { cli = x.Conteiner.Cliente, tip = x.Tipo })
+                                           .Select(x => new
+                                           {
+                                               Cliente = x.Key.cli,
+                                               TipoMovimentacao = x.Key.tip,
+                                               Total = x.Count()
+                                        }).OrderBy(x => x.Cliente)) {
+
+                <tr>
+                    <td>
+                    @Html.DisplayFor(modelItem => cliente.Cliente)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => cliente.TipoMovimentacao)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => cliente.Total)
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Cliente
+            </th>
+            <th>
+                Categoria
+            </th>
+            <th>
+                Total
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cliente in Model.Movimentacao
+        .GroupBy(x => new { cli = x.Conteiner.Cliente, categ = x.Conteiner.Categoria })
+        .Select(x => new
+        {
+           Cliente = x.Key.cli,
+           Categoria = x.Key.categ,
+           Total = x.Count()
+        }).OrderBy(x => x.Cliente))
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => cliente.Cliente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => cliente.Categoria)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => cliente.Total)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
